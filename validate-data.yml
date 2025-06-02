@@ -1,0 +1,15 @@
+name: Validate CSV
+
+on: [push]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Check CSV
+      run: |
+        if ! grep -q "AVP" data/peptides.csv; then
+          echo "CSV file does not contain expected peptide IDs"
+          exit 1
+        fi
